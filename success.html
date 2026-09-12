@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framecraft — You're in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0E0F11;
+    --surface: #17181B;
+    --text: #F2F1ED;
+    --text-dim: #9A9A97;
+    --accent: #E3B341;
+    --error: #E38A6D;
+    --line: #2A2B2F;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Work Sans', sans-serif;
+    min-height: 100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 24px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight: 500;
+    font-size: 2rem;
+    margin-bottom: 14px;
+  }
+  .card{
+    max-width: 480px;
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 44px;
+    text-align: center;
+  }
+  p{ color: var(--text-dim); line-height: 1.6; margin-bottom: 8px; }
+  .btn{
+    display:inline-block;
+    margin-top: 26px;
+    background: var(--accent);
+    color: #14120A;
+    text-decoration: none;
+    padding: 15px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .btn:hover{ background: #EFC461; }
+  .state-icon{
+    font-family:'Fraunces', serif;
+    font-size: 2.4rem;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .error .state-icon{ color: var(--error); }
+  .error p{ color: var(--text); }
+  .loading .state-icon{ color: var(--text-dim); }
+  .hidden{ display:none; }
+</style>
+</head>
+<body>
+
+<div class="card" id="loadingState">
+  <div class="state-icon">···</div>
+  <h1>Checking your payment…</h1>
+  <p>One moment, this takes a few seconds.</p>
+</div>
+
+<div class="card hidden" id="successState">
+  <div class="state-icon">✓</div>
+  <h1>You're in.</h1>
+  <p>Payment confirmed — welcome to Framecraft.</p>
+  <p>Tap below to join the group. I'll take it from there.</p>
+  <a class="btn" id="whatsappBtn" href="#" target="_blank" rel="noopener">Join the WhatsApp group</a>
+</div>
+
+<div class="card error hidden" id="errorState">
+  <div class="state-icon">!</div>
+  <h1>We couldn't confirm that payment</h1>
+  <p id="errorDetail">If you were charged, don't worry — nothing is lost. Contact support and we'll sort it out right away.</p>
+  <a class="btn" href="index.html">Back to Framecraft</a>
+</div>
+
+<script>
+  // ⚠️ Replace with your actual WhatsApp group invite link.
+  const WHATSAPP_LINK = "https://chat.whatsapp.com/HYC1K5sje2aGseIV0saif2";
+
+  function show(id){
+    ['loadingState','successState','errorState'].forEach(s => {
+      document.getElementById(s).classList.toggle('hidden', s !== id);
+    });
+  }
+
+  async function verifyPayment(){
+    const params = new URLSearchParams(window.location.search);
+    const reference = params.get('reference');
+
+    if(!reference){
+      document.getElementById('errorDetail').textContent = 'No payment reference was found. Please pay through the Framecraft page directly.';
+      show('errorState');
+      return;
+    }
+
+    try{
+      const res = await fetch('/api/verify?reference=' + encodeURIComponent(reference));
+      const data = await res.json();
+
+      if(res.ok && data.verified === true){
+        document.getElementById('whatsappBtn').href = WHATSAPP_LINK;
+        show('successState');
+      } else {
+        document.getElementById('errorDetail').textContent = 'This payment could not be verified. If you were charged, contact support with your reference: ' + reference;
+        show('errorState');
+      }
+    } catch(err){
+      document.getElementById('errorDetail').textContent = 'Something went wrong checking your payment. Please refresh this page, or contact support.';
+      show('errorState');
+    }
+  }
+
+  verifyPayment();
+</script>
+
+</body>
+</html>

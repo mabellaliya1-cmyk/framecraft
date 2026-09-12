@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framecraft — Create content people can't stop watching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0E0F11;
+    --surface: #17181B;
+    --surface-2: #1D1F23;
+    --text: #F2F1ED;
+    --text-dim: #9A9A97;
+    --accent: #E3B341;
+    --line: #2A2B2F;
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3{
+    font-family: 'Fraunces', serif;
+    letter-spacing: -0.01em;
+  }
+  a{ color: inherit; }
+  .wrap{ max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+  /* Nav */
+  nav{
+    display:flex; justify-content: space-between; align-items: center;
+    padding: 28px 0;
+  }
+  .logo{ font-family:'Fraunces', serif; font-size: 1.15rem; font-weight: 600; }
+  .logo span{ color: var(--accent); }
+  .nav-price{ color: var(--text-dim); font-size: 0.92rem; }
+
+  /* Hero */
+  .hero{ padding: 56px 0 80px; text-align:left; }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    padding: 8px 14px;
+    border-radius: 100px;
+    margin-bottom: 26px;
+  }
+  .badge b{ color: var(--text); font-weight: 600; }
+  .hero h1{
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 600;
+    line-height: 1.05;
+    text-transform: uppercase;
+    max-width: 16ch;
+  }
+  .hero .sub{
+    color: var(--text-dim);
+    font-size: 1.18rem;
+    margin-top: 24px;
+    max-width: 56ch;
+  }
+  .hero .reassure{
+    margin-top: 22px;
+    font-size: 1rem;
+    color: var(--text);
+    max-width: 50ch;
+  }
+  .hero .reassure b{ color: var(--accent); font-weight: 600; }
+  .hero-cta{
+    margin-top: 38px;
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    background: var(--accent);
+    color: #14120A;
+    border: none;
+    padding: 16px 28px;
+    border-radius: 6px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover{ background: #EFC461; transform: translateY(-1px); }
+  .btn:disabled{ opacity: 0.6; cursor: not-allowed; transform:none; }
+  .price-tag{ font-size: 0.95rem; color: var(--text-dim); }
+  .price-tag b{ color: var(--text); font-weight: 600; }
+
+  /* Sections */
+  .section{ padding: 64px 0; border-top: 1px solid var(--line); }
+  .section-label{
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+  }
+  .section h2{
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    max-width: 24ch;
+    margin-bottom: 40px;
+  }
+  .section p.lead{
+    color: var(--text-dim);
+    font-size: 1.08rem;
+    max-width: 56ch;
+    margin-bottom: 36px;
+  }
+
+  /* Skill list */
+  .skill-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .skill-item{
+    display:flex; align-items:center; gap: 14px;
+    padding: 16px 4px;
+    border-bottom: 1px solid var(--line);
+    font-size: 1rem;
+  }
+  .skill-item:nth-child(odd){ border-right: 1px solid var(--line); padding-right: 20px; }
+  .skill-item:nth-child(even){ padding-left: 20px; }
+  .skill-emoji{ font-size: 1.2rem; }
+
+  /* Growth list */
+  .grow-list{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 32px;
+    margin-top: 8px;
+  }
+  .grow-item{
+    display:flex; align-items:center; gap: 12px;
+    color: var(--text);
+    font-size: 1rem;
+  }
+  .grow-emoji{ font-size: 1.15rem; }
+
+  /* Idea to income */
+  .income-block{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 48px;
+  }
+  .income-block h2{ margin-bottom: 18px; }
+  .income-block p{ color: var(--text-dim); font-size: 1.1rem; max-width: 50ch; }
+  .income-block p + p{ margin-top: 12px; }
+  .income-block .tagline{
+    margin-top: 28px;
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    color: var(--accent);
+  }
+
+  /* Enroll */
+  .enroll{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 48px;
+    margin: 64px 0 32px;
+    text-align: center;
+  }
+  .enroll h2{
+    font-size: 1.9rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .enroll .sub{ color: var(--text-dim); margin-bottom: 32px; }
+  .field{ margin-bottom: 18px; display:flex; flex-direction:column; align-items:center; }
+  .field label{ font-size: 0.88rem; color: var(--text-dim); margin-bottom: 8px; }
+  .field input{
+    width: 100%; max-width: 380px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    padding: 13px 14px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Work Sans', sans-serif;
+    text-align:center;
+  }
+  .field input:focus{ outline: none; border-color: var(--accent); }
+  .enroll-row{
+    display:flex; flex-direction:column; align-items:center; gap: 12px;
+    margin-top: 28px;
+  }
+  .error-msg{ color: #E38A6D; font-size: 0.9rem; margin-top: 10px; display:none; }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 32px 0 48px;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    text-align:center;
+  }
+
+  @media (max-width: 780px){
+    .skill-grid{ grid-template-columns: 1fr; }
+    .skill-item:nth-child(odd){ border-right: none; padding-right: 4px; }
+    .skill-item:nth-child(even){ padding-left: 4px; }
+    .grow-list{ grid-template-columns: 1fr; }
+    .income-block, .enroll{ padding: 32px 22px; }
+  }
+
+  :focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    .btn{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="logo">Frame<span>craft</span> 🎬</div>
+    <div class="nav-price">₦3,000 · one-time</div>
+  </nav>
+</div>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="badge"><b>Framecraft 🎬</b> — the complete AI content creation class for beginners</div>
+    <h1>Create content people can't stop watching.</h1>
+    <p class="sub">Learn how to create AI animated stories, cinematic videos, stunning visuals, adverts and content — all from your laptop.</p>
+    <p class="reassure"><b>No</b> animation experience. <b>No</b> expensive equipment. <b>No</b> complicated skills. Just your ideas + the right tools.</p>
+    <div class="hero-cta">
+      <button class="btn" onclick="document.getElementById('enroll').scrollIntoView({behavior:'smooth'})">Join for ₦3,000</button>
+      <span class="price-tag">Lifetime access · <b>one payment</b></span>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="section-label">What's inside</div>
+    <h2>Everything you need to create.</h2>
+    <div class="skill-grid">
+      <div class="skill-item"><span class="skill-emoji">🎬</span> Animated stories</div>
+      <div class="skill-item"><span class="skill-emoji">🖼️</span> AI images & visuals</div>
+      <div class="skill-item"><span class="skill-emoji">🎥</span> AI videos & animation</div>
+      <div class="skill-item"><span class="skill-emoji">✂️</span> Video editing</div>
+      <div class="skill-item"><span class="skill-emoji">🎙️</span> AI voices</div>
+      <div class="skill-item"><span class="skill-emoji">🎵</span> AI music</div>
+      <div class="skill-item"><span class="skill-emoji">🔊</span> Sound effects</div>
+      <div class="skill-item"><span class="skill-emoji">📖</span> Storytelling</div>
+      <div class="skill-item"><span class="skill-emoji">🧠</span> Psychology of attention</div>
+      <div class="skill-item"><span class="skill-emoji">🪝</span> Hooks & retention</div>
+      <div class="skill-item"><span class="skill-emoji">📢</span> Adverts for brands</div>
+      <div class="skill-item"><span class="skill-emoji">🤖</span> AI automation & workflows</div>
+      <div class="skill-item"><span class="skill-emoji">💰</span> How to make money with your skills</div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="section-label">Beyond the skills</div>
+    <h2>Don't just create. Grow.</h2>
+    <p class="lead">Learn how to create content designed to get attention, grow your followers and build an audience. Use your new skills to:</p>
+    <div class="grow-list">
+      <div class="grow-item"><span class="grow-emoji">📱</span> Grow your social media pages</div>
+      <div class="grow-item"><span class="grow-emoji">▶️</span> Build and grow a YouTube channel</div>
+      <div class="grow-item"><span class="grow-emoji">💰</span> Get paid creating content for brands</div>
+      <div class="grow-item"><span class="grow-emoji">📢</span> Create adverts businesses actually want</div>
+      <div class="grow-item"><span class="grow-emoji">🎬</span> Build an impressive creative portfolio</div>
+      <div class="grow-item"><span class="grow-emoji">🚀</span> Turn your creativity into income</div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="income-block">
+      <div class="section-label">The real goal</div>
+      <h2 style="text-transform:none;">From idea to income.</h2>
+      <p>You don't just learn how to use AI tools.</p>
+      <p>You learn how to create content people watch — and turn that skill into opportunities.</p>
+      <div class="tagline">Framecraft — Create. Grow. Get Paid.</div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="enroll" id="enroll">
+    <h2>Join now for ₦3,000</h2>
+    <div class="sub">One payment. Lifetime access. You'll get instant access after payment.</div>
+
+    <div class="field">
+      <label for="email">Your email address</label>
+      <input type="email" id="email" placeholder="you@email.com" required>
+    </div>
+
+    <div class="enroll-row">
+      <button class="btn" id="payBtn" onclick="startPayment()">Pay ₦3,000 & join</button>
+      <span class="price-tag">Secure checkout via Paystack</span>
+    </div>
+    <div class="error-msg" id="errorMsg">Please enter a valid email address first.</div>
+  </section>
+</div>
+
+<div class="wrap">
+  <footer>
+    Framecraft · Payments processed securely by Paystack.
+  </footer>
+</div>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+  // ⚠️ Replace with your Paystack PUBLIC key (starts with pk_). Safe to expose in the browser.
+  const PAYSTACK_PUBLIC_KEY = "pk_test_REPLACE_WITH_YOUR_PUBLIC_KEY";
+  const AMOUNT_KOBO = 300000; // ₦3,000 in kobo (Paystack charges in kobo, so amount x 100)
+
+  function isValidEmail(email){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function startPayment(){
+    const emailInput = document.getElementById('email');
+    const errorMsg = document.getElementById('errorMsg');
+    const email = emailInput.value.trim();
+
+    if(!isValidEmail(email)){
+      errorMsg.style.display = 'block';
+      emailInput.focus();
+      return;
+    }
+    errorMsg.style.display = 'none';
+
+    const payBtn = document.getElementById('payBtn');
+    payBtn.disabled = true;
+    payBtn.textContent = 'Opening secure checkout…';
+
+    const handler = PaystackPop.setup({
+      key: PAYSTACK_PUBLIC_KEY,
+      email: email,
+      amount: AMOUNT_KOBO,
+      currency: 'NGN',
+      ref: 'framecraft_' + Math.floor((Math.random() * 1000000000) + 1),
+      callback: function(response){
+        window.location.href = 'success.html?reference=' + encodeURIComponent(response.reference);
+      },
+      onClose: function(){
+        payBtn.disabled = false;
+        payBtn.textContent = 'Pay ₦3,000 & join';
+      }
+    });
+    handler.openIframe();
+  }
+</script>
+
+</body>
+</html>
