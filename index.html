@@ -14,6 +14,20 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   ttq.load('DAJH73RC77U9CE2JJBP0');
   ttq.page();
 }(window, document, 'ttq');
+
+// Tell TikTok this page (the class) was viewed — completes the funnel
+// alongside AddToCart, InitiateCheckout, and Purchase below.
+window.addEventListener('load', function () {
+  if (window.ttq) {
+    ttq.track('ViewContent', {
+      content_id: 'framecraft-class',
+      content_name: 'Framecraft — AI Content Creation Class',
+      content_type: 'product',
+      value: 3000, // ⚠️ Update this if you change the class price
+      currency: 'NGN'
+    });
+  }
+});
 </script>
 <!-- TikTok Pixel Code End -->
 <title>Framecraft — Create content people can't stop watching</title>
@@ -257,7 +271,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <p class="sub">Learn how to create AI animated stories, cinematic videos, stunning visuals, adverts and content — all from your laptop.</p>
     <p class="reassure"><b>No</b> animation experience. <b>No</b> expensive equipment. <b>No</b> complicated skills. Just your ideas + the right tools.</p>
     <div class="hero-cta">
-      <button class="btn" onclick="document.getElementById('enroll').scrollIntoView({behavior:'smooth'})">Join for ₦3,000</button>
+      <button class="btn" onclick="handleJoinClick()">Join for ₦3,000</button>
       <span class="price-tag">Lifetime access · <b>one payment</b></span>
     </div>
   </section>
@@ -347,6 +361,21 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
+  // Fires when someone clicks the main "Join" button — signals purchase
+  // intent to TikTok (their equivalent of AddToCart), then scrolls to checkout.
+  function handleJoinClick(){
+    if (window.ttq) {
+      ttq.track('AddToCart', {
+        content_id: 'framecraft-class',
+        content_name: 'Framecraft — AI Content Creation Class',
+        content_type: 'product',
+        value: 3000, // ⚠️ Update this if you change the class price
+        currency: 'NGN'
+      });
+    }
+    document.getElementById('enroll').scrollIntoView({behavior:'smooth'});
+  }
+
   function startPayment(){
     const emailInput = document.getElementById('email');
     const errorMsg = document.getElementById('errorMsg');
@@ -358,6 +387,15 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       return;
     }
     errorMsg.style.display = 'none';
+
+    // Tell TikTok someone started checkout — lets you see drop-off
+    // between "started paying" and "actually paid" in Events Manager.
+    if (window.ttq) {
+      ttq.track('InitiateCheckout', {
+        value: 3000, // ⚠️ Update this if you change the class price
+        currency: 'NGN'
+      });
+    }
 
     const payBtn = document.getElementById('payBtn');
     payBtn.disabled = true;
