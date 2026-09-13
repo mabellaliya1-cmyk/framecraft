@@ -392,6 +392,9 @@ window.addEventListener('load', function () {
     // between "started paying" and "actually paid" in Events Manager.
     if (window.ttq) {
       ttq.track('InitiateCheckout', {
+        content_id: 'framecraft-class',
+        content_name: 'Framecraft — AI Content Creation Class',
+        content_type: 'product',
         value: 3000, // ⚠️ Update this if you change the class price
         currency: 'NGN'
       });
