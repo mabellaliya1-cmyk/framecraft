@@ -23,7 +23,7 @@ window.addEventListener('load', function () {
       content_id: 'framecraft-class',
       content_name: 'Framecraft — AI Content Creation Class',
       content_type: 'product',
-      value: 3000, // ⚠️ Update this if you change the class price
+      value: 10000, // ⚠️ Update this if you change the class price
       currency: 'NGN'
     });
   }
@@ -260,7 +260,7 @@ window.addEventListener('load', function () {
 <div class="wrap">
   <nav>
     <div class="logo">Frame<span>craft</span> 🎬</div>
-    <div class="nav-price">₦3,000 · one-time</div>
+    <div class="nav-price">₦10,000 · one-time</div>
   </nav>
 </div>
 
@@ -271,7 +271,7 @@ window.addEventListener('load', function () {
     <p class="sub">Learn how to create AI animated stories, cinematic videos, stunning visuals, adverts and content — all from your laptop.</p>
     <p class="reassure"><b>No</b> animation experience. <b>No</b> expensive equipment. <b>No</b> complicated skills. Just your ideas + the right tools.</p>
     <div class="hero-cta">
-      <button class="btn" onclick="handleJoinClick()">Join for ₦3,000</button>
+      <button class="btn" onclick="handleJoinClick()">Join for ₦10,000</button>
       <span class="price-tag">Lifetime access · <b>one payment</b></span>
     </div>
   </section>
@@ -329,7 +329,7 @@ window.addEventListener('load', function () {
 
 <div class="wrap">
   <section class="enroll" id="enroll">
-    <h2>Join now for ₦3,000</h2>
+    <h2>Join now for ₦10,000</h2>
     <div class="sub">One payment. Lifetime access. You'll get instant access after payment.</div>
 
     <div class="field">
@@ -338,7 +338,7 @@ window.addEventListener('load', function () {
     </div>
 
     <div class="enroll-row">
-      <button class="btn" id="payBtn" onclick="startPayment()">Pay ₦3,000 & join</button>
+      <button class="btn" id="payBtn" onclick="startPayment()">Pay ₦10,000 & join</button>
       <span class="price-tag">Secure checkout via Paystack</span>
     </div>
     <div class="error-msg" id="errorMsg">Please enter a valid email address first.</div>
@@ -355,7 +355,7 @@ window.addEventListener('load', function () {
 <script>
   // ⚠️ Replace with your Paystack PUBLIC key (starts with pk_). Safe to expose in the browser.
   const PAYSTACK_PUBLIC_KEY = "pk_live_cd80ef5cfff737bee85c81f3b536f3f55bc97b89";
-  const AMOUNT_KOBO = 300000; // ₦3,000 in kobo (Paystack charges in kobo, so amount x 100)
+  const AMOUNT_KOBO = 1000000; // ₦10,000 in kobo (Paystack charges in kobo, so amount x 100)
 
   function isValidEmail(email){
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -369,7 +369,7 @@ window.addEventListener('load', function () {
         content_id: 'framecraft-class',
         content_name: 'Framecraft — AI Content Creation Class',
         content_type: 'product',
-        value: 3000, // ⚠️ Update this if you change the class price
+        value: 10000, // ⚠️ Update this if you change the class price
         currency: 'NGN'
       });
     }
@@ -395,7 +395,7 @@ window.addEventListener('load', function () {
         content_id: 'framecraft-class',
         content_name: 'Framecraft — AI Content Creation Class',
         content_type: 'product',
-        value: 3000, // ⚠️ Update this if you change the class price
+        value: 10000, // ⚠️ Update this if you change the class price
         currency: 'NGN'
       });
     }
@@ -415,7 +415,7 @@ window.addEventListener('load', function () {
       },
       onClose: function(){
         payBtn.disabled = false;
-        payBtn.textContent = 'Pay ₦3,000 & join';
+        payBtn.textContent = 'Pay ₦10,000 & join';
       }
     });
     handler.openIframe();
