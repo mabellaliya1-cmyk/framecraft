@@ -36,12 +36,20 @@ const EXPECTED_AMOUNT_KOBO = 1000000; // ₦10,000 — must match AMOUNT_KOBO in
       data.data.amount >= EXPECTED_AMOUNT_KOBO &&
       data.data.currency === 'NGN';
 
-    if (isSuccess) {
+       if (isSuccess) {
       return res.status(200).json({ verified: true });
     }
 
-    return res.status(200).json({ verified: false });
-  } catch (err) {
-    return res.status(500).json({ verified: false, error: 'Verification failed' });
-  }
+    // TEMPORARY: showing raw details to debug why this isn't matching.
+    // Remove this debug block once the issue is found.
+    return res.status(200).json({
+      verified: false,
+      debug: {
+        paystackStatus: data && data.status,
+        transactionStatus: data && data.data && data.data.status,
+        amountReceived: data && data.data && data.data.amount,
+        amountExpected: EXPECTED_AMOUNT_KOBO,
+        currency: data && data.data && data.data.currency
+      }
+    });
 }
