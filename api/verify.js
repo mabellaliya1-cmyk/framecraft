@@ -40,18 +40,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ verified: true });
     }
 
-    // TEMPORARY: showing raw details to debug why this isn't matching.
-    // Remove this debug block once the issue is found.
-    return res.status(200).json({
-      verified: false,
-      debug: {
-        paystackStatus: data && data.status,
-        transactionStatus: data && data.data && data.data.status,
-        amountReceived: data && data.data && data.data.amount,
-        amountExpected: EXPECTED_AMOUNT_KOBO,
-        currency: data && data.data && data.data.currency
-      }
-    });
+    return res.status(200).json({ verified: false });
   } catch (err) {
     return res.status(500).json({ verified: false, error: 'Verification failed' });
   }
