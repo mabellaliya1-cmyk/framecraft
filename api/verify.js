@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
     const data = await paystackRes.json();
 
-    const EXPECTED_AMOUNT_KOBO = 300000; // ₦3,000 — must match AMOUNT_KOBO in index.html
+const EXPECTED_AMOUNT_KOBO = 1000000; // ₦10,000 — must match AMOUNT_KOBO in index.html
     const isSuccess =
       data &&
       data.status === true &&
