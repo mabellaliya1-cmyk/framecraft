@@ -33,7 +33,7 @@ const EXPECTED_AMOUNT_KOBO = 1000000; // ₦10,000 — must match AMOUNT_KOBO in
       data.status === true &&
       data.data &&
       data.data.status === 'success' &&
-      data.data.amount === EXPECTED_AMOUNT_KOBO &&
+      data.data.amount >= EXPECTED_AMOUNT_KOBO &&
       data.data.currency === 'NGN';
 
     if (isSuccess) {
