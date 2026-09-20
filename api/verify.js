@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
     const data = await paystackRes.json();
 
-const EXPECTED_AMOUNT_KOBO = 1000000; // ₦10,000 — must match AMOUNT_KOBO in index.html
+    const EXPECTED_AMOUNT_KOBO = 1000000; // ₦10,000 — must match AMOUNT_KOBO in index.html
     const isSuccess =
       data &&
       data.status === true &&
@@ -36,7 +36,7 @@ const EXPECTED_AMOUNT_KOBO = 1000000; // ₦10,000 — must match AMOUNT_KOBO in
       data.data.amount >= EXPECTED_AMOUNT_KOBO &&
       data.data.currency === 'NGN';
 
-       if (isSuccess) {
+    if (isSuccess) {
       return res.status(200).json({ verified: true });
     }
 
@@ -52,4 +52,7 @@ const EXPECTED_AMOUNT_KOBO = 1000000; // ₦10,000 — must match AMOUNT_KOBO in
         currency: data && data.data && data.data.currency
       }
     });
+  } catch (err) {
+    return res.status(500).json({ verified: false, error: 'Verification failed' });
+  }
 }
